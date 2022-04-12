@@ -41,6 +41,15 @@ public class Event {
     private LocalDateTime dateOfEventStart;
 
     @Column
+    private LocalDateTime dateOfEventStop;
+
+    @Column
+    private String location;
+
+    @Column
+    private String name;
+
+    @Column
     @Enumerated(EnumType.STRING)
     private EventStatus eventStatus;
 

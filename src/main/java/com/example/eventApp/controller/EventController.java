@@ -11,11 +11,11 @@ import java.util.List;
 @RequestMapping("/events")
 public class EventController {
 
-    @PostMapping("/{eventId}")
-    public List<UserDTO> addToWhitelist(@PathVariable long eventId,
-                                        @RequestParam long userId) {
-
-    }
+//    @PostMapping("/{eventId}")
+//    public List<UserDTO> addToWhitelist(@PathVariable long eventId,
+//                                        @RequestParam long userId) {
+//
+//    }
 
     // ToDo: EventDTO createEvent(ToDo: add params);
     // ToDo: List<EventDTO> getEventsByAuthorId(@PathVariable long authorId);

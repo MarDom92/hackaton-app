@@ -31,8 +31,13 @@ public class EventController {
     }
 
     @GetMapping(path = "/participate/{id}")
-    public List<EventDTO> getEventsWithUserInRegistrants(@PathVariable("id")Long id) {
+    public List<EventDTO> getEventsWithUserInRegistrants(@PathVariable("id") Long id) {
         return eventService.getEventsWithUserInRegistrants(id);
+    }
+
+    @GetMapping(path = "/cancel/{id}")
+    public boolean cancelEvent(@PathVariable("id") Long id) {
+        return eventService.cancelEvent(id);
     }
 
 //    @PostMapping("/{eventId}")

@@ -9,6 +9,9 @@ import com.example.eventApp.repositories.EventRepository;
 import com.example.eventApp.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -30,6 +33,12 @@ public class EventService {
     }
 
     public List<EventDTO> getAllUserEvents(Long id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            User currentUser = userRepository.findByUsername(currentUserName);
+
+        }
         List<Event> events = eventRepository.findEventByAuthor_Id(id);
         return events.stream().map(event -> modelMapper.map(event, EventDTO.class)).collect(Collectors.toList());
     }
@@ -50,7 +59,7 @@ public class EventService {
         User user = userRepository.getById(id);
         List<Event> filtrated = new ArrayList<>();
         for (Event e : events) {
-            if (e.getRegistrants().contains(user)) {
+            if (e.getRegistrants().contains(user) && e.getEventStatus().equals(EventStatus.PLANNED)) {
                 filtrated.add(e);
             }
         }

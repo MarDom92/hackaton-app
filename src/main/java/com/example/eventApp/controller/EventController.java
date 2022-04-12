@@ -35,6 +35,4 @@ public class EventController {
     public List<EventDTO> getEventsWithUserInRegistrants(@PathVariable("id")Long id) {
         return eventService.getEventsWithUserInRegistrants(id);
     }
-
-
 }

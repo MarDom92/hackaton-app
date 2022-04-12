@@ -35,12 +35,14 @@ public class EventService {
     }
 
     public EventDTO getEventById(Long id) {
-        Optional<Event> event = eventRepository.findById(id);
-        if (event.isPresent()) {
-            return modelMapper.map(event, EventDTO.class);
-        } else {
-            return null;
+        List<Event> events = eventRepository.findAll();
+        for (Event e: events
+        ) {
+            if (e.getId() == id) {
+                return modelMapper.map(e, EventDTO.class);
+            }
         }
+        return null;
     }
 
     public List<EventDTO> getEventsWithUserInRegistrants(Long id) {
@@ -70,4 +72,6 @@ public class EventService {
     public void saveEventToDB(EventDTO eventDTO) {
         eventRepository.save(modelMapper.map(eventDTO, Event.class));
     }
+
+
 }

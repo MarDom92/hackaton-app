@@ -1,6 +1,8 @@
 package com.example.eventApp.controller;
 
-import com.example.eventApp.model.dto.UserDTO;
+import com.example.eventApp.model.dto.EventDTO;
+import com.example.eventApp.model.enums.EventType;
+import com.example.eventApp.service.EventService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,16 +13,22 @@ import java.util.List;
 @RequestMapping("/events")
 public class EventController {
 
+    private final EventService eventService;
+
+    @GetMapping( "/public")
+    public List<EventDTO> getAllPublicEvents() {
+        return eventService.getEventsByEventType(EventType.PUBLIC);
+    }
+
+    @GetMapping(path = "/user-events/{id}")
+    public List<EventDTO> getAllMyEvents(@PathVariable("id") Long id) {
+        return eventService.getAllUserEvents(id);
+    }
+
 //    @PostMapping("/{eventId}")
 //    public List<UserDTO> addToWhitelist(@PathVariable long eventId,
 //                                        @RequestParam long userId) {
 //
 //    }
-
-    // ToDo: EventDTO createEvent(ToDo: add params);
-    // ToDo: List<EventDTO> getEventsByAuthorId(@PathVariable long authorId);
-    // ToDo: List<EventDTO> getEventByStatus(@PathVariable long userId, @PathVariable String EventStatus)
-    // ToDo: void registerUserOnEvent (@PathVariable long userId); (write user to List<user> registrants
-    // ToDo: List<EventDTO> getEventsAvailable(@PathVariable long authorId);
 
 }

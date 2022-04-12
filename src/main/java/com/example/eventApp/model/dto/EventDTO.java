@@ -17,7 +17,7 @@ import java.util.List;
 public class EventDTO {
 
     private long id;
-    private UserDTO userDTO;
+    private UserDTO author;
     private String description;
     private LocalDateTime created;
     private LocalDateTime updated;

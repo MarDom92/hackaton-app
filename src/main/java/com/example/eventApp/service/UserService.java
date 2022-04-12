@@ -19,29 +19,20 @@ public class UserService {
 
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @Autowired
     public UserService(UserRepository userRepository,
-                       PasswordEncoder passwordEncoder) {
+                       PasswordEncoder passwordEncoder,
+                       ModelMapper modelMapper) {
 
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.modelMapper = modelMapper;
     }
 
     public List<UserDTO> getAllUsers() {
         List<User> users = userRepository.findAll();
         return users.stream().map(user -> modelMapper.map(user, UserDTO.class)).collect(Collectors.toList());
-    }
-
-    public List<User> findAllUsers() {
-
-        List<User> allTasks = (List<User>) userRepository.findAll();
-
-        if(allTasks.size() > 0) {
-            return allTasks;
-        } else {
-            return new ArrayList<User>();
-        }
     }
 }

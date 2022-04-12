@@ -66,4 +66,8 @@ public class EventService {
             return false;
         }
     }
+
+    public void saveEventToDB(EventDTO eventDTO) {
+        eventRepository.save(modelMapper.map(eventDTO, Event.class));
+    }
 }

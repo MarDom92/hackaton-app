@@ -9,17 +9,20 @@ import com.example.eventApp.repositories.EventRepository;
 import com.example.eventApp.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@EnableScheduling
 @RequiredArgsConstructor
 public class EventService {
 
@@ -78,7 +81,11 @@ public class EventService {
     public void saveEventToDB(EventDTO eventDTO) {
         eventRepository.save(modelMapper.map(eventDTO, Event.class));
     }
-
+  
+    public void updateEvent(EventDTO eventDTO) {
+        eventRepository.save(modelMapper.map(eventDTO, Event.class));
+    }
+  
     private List<Event> getPlannedEventsOnly(List<Event> eventsForCheck) {
         List<Event> events = new ArrayList<>();
         for (Event e:eventsForCheck
@@ -88,5 +95,26 @@ public class EventService {
             }
         }
         return events;
+    }
+}
+
+    // delay 1 hour
+    @Scheduled(fixedDelay = 3600000)
+    public void scheduleTransferEventsToStatusArchived() {
+        List<Event> events = eventRepository.findAllByEventStatus(EventStatus.PLANNED);
+
+        LocalDateTime currentDate;
+        LocalDateTime dateOfEventStop;
+
+        for (Event e : events) {
+            currentDate = LocalDateTime.now();
+            dateOfEventStop = eventRepository.getById(e.getId()).getDateOfEventStop();
+
+            if (currentDate.isAfter(dateOfEventStop)) {
+                e.setEventStatus(EventStatus.ARCHIVED);
+            }
+        }
+
+        eventRepository.saveAll(events);
     }
 }

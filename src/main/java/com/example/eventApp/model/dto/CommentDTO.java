@@ -13,6 +13,7 @@ public class CommentDTO {
 
     private long id;
     private UserDTO user;
+    private long eventId;
     private String comment;
     private LocalDateTime created;
 }

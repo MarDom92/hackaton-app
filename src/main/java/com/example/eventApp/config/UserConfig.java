@@ -21,22 +21,26 @@ public class UserConfig {
                     "Górski",
                     "pawel.gorski",
                     passwordEncoder.encode("password"));
-            User zenon = new User(2L,
+            User zenon = new User(
+                    2L,
                     "Zenon",
                     "Kowalski",
                     "zenon.kowalski",
                     passwordEncoder.encode("password"));
-            User kazik = new User(3L,
+            User kazik = new User(
+                    3L,
                     "Kazimierz",
                     "Wielki",
                     "kazimierz.wielki",
                     passwordEncoder.encode("password"));
-            User kuba = new User(4L,
+            User kuba = new User(
+                    4L,
                     "Jakub",
                     "Nowak",
                     "jakub.nowak",
                     passwordEncoder.encode("password"));
-            User cba = new User(5L,
+            User cba = new User(
+                    5L,
                     "c",
                     "b",
                     "a",

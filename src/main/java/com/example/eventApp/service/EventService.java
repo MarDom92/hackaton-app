@@ -3,6 +3,7 @@ package com.example.eventApp.service;
 import com.example.eventApp.model.dto.EventDTO;
 import com.example.eventApp.model.entity.Event;
 import com.example.eventApp.model.entity.User;
+import com.example.eventApp.model.enums.EventStatus;
 import com.example.eventApp.model.enums.EventType;
 import com.example.eventApp.repositories.EventRepository;
 import com.example.eventApp.repositories.UserRepository;
@@ -25,12 +26,12 @@ public class EventService {
 
     public List<EventDTO> getEventsByEventType(EventType eventType) {
         List<Event> events = eventRepository.findAllByEventType(eventType);
-        return events.stream().map(event -> modelMapper.map(event,EventDTO.class)).collect(Collectors.toList());
+        return events.stream().map(event -> modelMapper.map(event, EventDTO.class)).collect(Collectors.toList());
     }
 
     public List<EventDTO> getAllUserEvents(Long id) {
         List<Event> events = eventRepository.findEventByAuthor_Id(id);
-        return events.stream().map(event -> modelMapper.map(event,EventDTO.class)).collect(Collectors.toList());
+        return events.stream().map(event -> modelMapper.map(event, EventDTO.class)).collect(Collectors.toList());
     }
 
     public EventDTO getEventById(Long id) {
@@ -46,13 +47,24 @@ public class EventService {
         List<Event> events = eventRepository.findAll();
         User user = userRepository.getById(id);
         List<Event> filtrated = new ArrayList<>();
-        for (Event e:events
-             ) {
+        for (Event e : events) {
             if (e.getRegistrants().contains(user)) {
                 filtrated.add(e);
             }
         }
-        return filtrated.stream().map(event -> modelMapper.map(event,EventDTO.class)).collect(Collectors.toList());
+        return filtrated.stream().map(event -> modelMapper.map(event, EventDTO.class)).collect(Collectors.toList());
+    }
+
+    public boolean cancelEvent(Long id) {
+        Optional<Event> event = eventRepository.findById(id);
+
+        if (event.isPresent()) {
+            event.get().setEventStatus(EventStatus.CANCELLED);
+            eventRepository.save(event.get());
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void saveEventToDB(EventDTO eventDTO) {

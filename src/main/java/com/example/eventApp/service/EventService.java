@@ -75,8 +75,6 @@ public class EventService {
 
 
     public void updateEvent(EventDTO eventDTO) {
-        Event event = eventRepository.getById(eventDTO.getId());
-        event = modelMapper.map(eventDTO, Event.class);
-        eventRepository.save(event);
+        eventRepository.save(modelMapper.map(eventDTO, Event.class));
     }
 }

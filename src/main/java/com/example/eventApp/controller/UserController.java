@@ -3,9 +3,7 @@ package com.example.eventApp.controller;
 import com.example.eventApp.model.dto.UserDTO;
 import com.example.eventApp.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,6 +19,8 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    // ToDo: List<UserDTO> importLDAPUsers();
-    // ToDo: ResponseEntity<Void> login(UserRequest request); -> login, password
+    @PutMapping(path = "/add-me-to-event")
+    public void addRegistrantToEvent(@RequestBody Long userId, Long eventId) {
+        userService.addRegistrantToEvent(userId, eventId);
+    }
 }

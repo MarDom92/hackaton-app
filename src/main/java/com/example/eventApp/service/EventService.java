@@ -9,10 +9,8 @@ import com.example.eventApp.repositories.EventRepository;
 import com.example.eventApp.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -69,7 +67,7 @@ public class EventService {
     public boolean cancelEvent(Long id) {
         Optional<Event> event = eventRepository.findById(id);
 
-        if (event.isPresent()&&event.get().getEventStatus().equals(EventStatus.PLANNED)) {
+        if (event.isPresent() && event.get().getEventStatus().equals(EventStatus.PLANNED)) {
             event.get().setEventStatus(EventStatus.CANCELLED);
             eventRepository.save(event.get());
             return true;
@@ -81,14 +79,14 @@ public class EventService {
     public void saveEventToDB(EventDTO eventDTO) {
         eventRepository.save(modelMapper.map(eventDTO, Event.class));
     }
-  
+
     public void updateEvent(EventDTO eventDTO) {
         eventRepository.save(modelMapper.map(eventDTO, Event.class));
     }
-  
+
     private List<Event> getPlannedEventsOnly(List<Event> eventsForCheck) {
         List<Event> events = new ArrayList<>();
-        for (Event e:eventsForCheck
+        for (Event e : eventsForCheck
         ) {
             if (e.getEventStatus().equals(EventStatus.PLANNED)) {
                 events.add(e);
@@ -96,7 +94,6 @@ public class EventService {
         }
         return events;
     }
-}
 
     // delay 1 hour
     @Scheduled(fixedDelay = 3600000)

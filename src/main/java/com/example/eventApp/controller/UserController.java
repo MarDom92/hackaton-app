@@ -1,6 +1,7 @@
 package com.example.eventApp.controller;
 
 import com.example.eventApp.model.dto.UserDTO;
+import com.example.eventApp.model.entity.User;
 import com.example.eventApp.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +18,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public List<UserDTO> getAllUsers() {
-        return userService.getAllUsers();
+    public List<User> getAllUsers() {
+        return userService.findAllUsers();
     }
 
     // ToDo: List<UserDTO> importLDAPUsers();

@@ -41,6 +41,16 @@ public class EventController {
         return eventService.cancelEvent(id);
     }
 
+    @PostMapping(path = "/private",
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void createPrivateEvent(@RequestBody EventDTO eventDTO) {
+        eventService.saveEventToDB(eventDTO);
+    }
 
+    @PostMapping(path = "/public",
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void createPublicEvent(@RequestBody EventDTO eventDTO) {
+        eventService.saveEventToDB(eventDTO);
+    }
 }
 

@@ -76,6 +76,10 @@ public class EventService {
     public void saveEventToDB(EventDTO eventDTO) {
         eventRepository.save(modelMapper.map(eventDTO, Event.class));
     }
+  
+    public void updateEvent(EventDTO eventDTO) {
+        eventRepository.save(modelMapper.map(eventDTO, Event.class));
+    }
 
     // delay 1 hour
     @Scheduled(fixedDelay = 3600000)

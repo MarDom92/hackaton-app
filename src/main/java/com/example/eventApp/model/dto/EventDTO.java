@@ -6,6 +6,7 @@ import com.example.eventApp.model.enums.EventStatus;
 import com.example.eventApp.model.enums.EventType;
 import lombok.*;
 
+import javax.persistence.Column;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,6 +23,9 @@ public class EventDTO {
     private LocalDateTime created;
     private LocalDateTime updated;
     private LocalDateTime dateOfEventStart;
+    private LocalDateTime dateOfEventStop;
+    private String location;
+    private String name;
     private EventStatus eventStatus;
     private EventType eventType;
     private List<UserDTO> registrants;

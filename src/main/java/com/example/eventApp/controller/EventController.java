@@ -4,6 +4,7 @@ import com.example.eventApp.model.dto.EventDTO;
 import com.example.eventApp.model.enums.EventType;
 import com.example.eventApp.service.EventService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,6 +36,11 @@ public class EventController {
         return eventService.getEventsWithUserInRegistrants(id);
     }
 
+    @PostMapping(path = "/private",
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void createPrivateEvent(@RequestBody EventDTO eventDTO) {
+        eventService.saveEventToDB(eventDTO);
+    }
 //    @PostMapping("/{eventId}")
 //    public List<UserDTO> addToWhitelist(@PathVariable long eventId,
 //                                        @RequestParam long userId) {

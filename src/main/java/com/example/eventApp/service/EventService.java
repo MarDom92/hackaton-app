@@ -35,6 +35,7 @@ public class EventService {
 
     public EventDTO getEventById(Long id) {
         Optional<Event> event = eventRepository.findById(id);
+
         if (event.isPresent()) {
             return modelMapper.map(event, EventDTO.class);
         }else{
@@ -54,5 +55,9 @@ public class EventService {
             }
         }
         return filtrated.stream().map(event -> modelMapper.map(event,EventDTO.class)).collect(Collectors.toList());
+    }
+
+    public void saveEventToDB(EventDTO eventDTO) {
+        eventRepository.save(modelMapper.map(eventDTO, Event.class));
     }
 }

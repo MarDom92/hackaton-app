@@ -29,6 +29,5 @@ public class EventDTO {
     private EventStatus eventStatus;
     private EventType eventType;
     private List<UserDTO> registrants;
-    private List<UserDTO> whitelist;
     private List<CommentDTO> comments;
 }

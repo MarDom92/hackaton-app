@@ -21,11 +21,15 @@ public class Comment {
     private long id;
 
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinTable(name = "user_comment",
+            joinColumns = @JoinColumn(name = "comment_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private User user;
 
     @ManyToOne()
-    @JoinColumn(name = "event_id")
+    @JoinTable(name = "event_comment",
+            joinColumns = @JoinColumn(name = "comment_id"),
+            inverseJoinColumns = @JoinColumn(name = "event_id"))
     private Event event;
 
     private String comment;

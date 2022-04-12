@@ -65,13 +65,6 @@ public class Event {
     private List<User> registrants;
 
     @Column
-    @ManyToMany
-    @JoinTable(name = "event_whitelist",
-            joinColumns = @JoinColumn(name = "event_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> whitelist;
-
-    @Column
     @OneToMany(targetEntity = Comment.class, mappedBy = "event", fetch = FetchType.LAZY)
     private List<Comment> comments;
 }

@@ -41,10 +41,11 @@ public class EventController {
     public void createPrivateEvent(@RequestBody EventDTO eventDTO) {
         eventService.saveEventToDB(eventDTO);
     }
-//    @PostMapping("/{eventId}")
-//    public List<UserDTO> addToWhitelist(@PathVariable long eventId,
-//                                        @RequestParam long userId) {
-//
-//    }
+
+    @PostMapping(path = "/public",
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void createPublicEvent(@RequestBody EventDTO eventDTO) {
+        eventService.saveEventToDB(eventDTO);
+    }
 
 }

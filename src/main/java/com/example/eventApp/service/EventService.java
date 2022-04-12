@@ -2,12 +2,15 @@ package com.example.eventApp.service;
 
 import com.example.eventApp.model.dto.EventDTO;
 import com.example.eventApp.model.entity.Event;
+import com.example.eventApp.model.entity.User;
 import com.example.eventApp.model.enums.EventType;
 import com.example.eventApp.repositories.EventRepository;
+import com.example.eventApp.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,6 +20,7 @@ import java.util.stream.Collectors;
 public class EventService {
 
     private final EventRepository eventRepository;
+    private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
     public List<EventDTO> getEventsByEventType(EventType eventType) {
@@ -40,7 +44,15 @@ public class EventService {
 
 
     public List<EventDTO> getEventsWithUserInRegistrants(Long id) {
-        List<Event> events = eventRepository.findAllByEventRegistrantsUserId(id);
-        return events.stream().map(event -> modelMapper.map(event,EventDTO.class)).collect(Collectors.toList());
+        List<Event> events = eventRepository.findAll();
+        User user = userRepository.getById(id);
+        List<Event> filtrated = new ArrayList<>();
+        for (Event e:events
+             ) {
+            if (e.getRegistrants().contains(user)) {
+                filtrated.add(e);
+            }
+        }
+        return filtrated.stream().map(event -> modelMapper.map(event,EventDTO.class)).collect(Collectors.toList());
     }
 }

@@ -25,5 +25,7 @@ public class User {
     private String lastName;
     @Column(length = 256)
     private String login;
+    @Column(length = 64)
+    private String password;
 //    todo: validation of login uniqueness
 }

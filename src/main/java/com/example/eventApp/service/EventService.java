@@ -24,7 +24,7 @@ public class EventService {
     }
 
     public List<EventDTO> getAllUserEvents(Long id) {
-        List<Event> events = eventRepository.findAllByUserId(id);
+        List<Event> events = eventRepository.findEventByAuthor_Id(id);
         return events.stream().map(event -> modelMapper.map(event,EventDTO.class)).collect(Collectors.toList());
     }
 }

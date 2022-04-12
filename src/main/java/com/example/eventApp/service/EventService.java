@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,6 +26,21 @@ public class EventService {
 
     public List<EventDTO> getAllUserEvents(Long id) {
         List<Event> events = eventRepository.findEventByAuthor_Id(id);
+        return events.stream().map(event -> modelMapper.map(event,EventDTO.class)).collect(Collectors.toList());
+    }
+
+    public EventDTO getEventById(Long id) {
+        Optional<Event> event = eventRepository.findById(id);
+        if (event.isPresent()) {
+            return modelMapper.map(event, EventDTO.class);
+        }else{
+            return null;
+        }
+    }
+
+
+    public List<EventDTO> getEventsWithUserInRegistrants(Long id) {
+        List<Event> events = eventRepository.findAllByEventRegistrantsUserId(id);
         return events.stream().map(event -> modelMapper.map(event,EventDTO.class)).collect(Collectors.toList());
     }
 }

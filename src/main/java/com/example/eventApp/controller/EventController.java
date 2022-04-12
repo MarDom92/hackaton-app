@@ -15,7 +15,7 @@ public class EventController {
 
     private final EventService eventService;
 
-    @GetMapping( "/public")
+    @GetMapping("/public")
     public List<EventDTO> getAllPublicEvents() {
         return eventService.getEventsByEventType(EventType.PUBLIC);
     }
@@ -23,6 +23,16 @@ public class EventController {
     @GetMapping(path = "/user-events/{id}")
     public List<EventDTO> getAllMyEvents(@PathVariable("id") Long id) {
         return eventService.getAllUserEvents(id);
+    }
+
+    @GetMapping(path = "/{id}")
+    public EventDTO getEventById(@PathVariable("id") Long id) {
+        return eventService.getEventById(id);
+    }
+
+    @GetMapping(path = "/participate/{id}")
+    public List<EventDTO> getEventsWithUserInRegistrants(@PathVariable("id")Long id) {
+        return eventService.getEventsWithUserInRegistrants(id);
     }
 
 //    @PostMapping("/{eventId}")

@@ -14,6 +14,7 @@ public class CommentController {
 
     private final CommentService commentService;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(path = "/add",
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createComment(@RequestBody CommentDTO commentDTO) {

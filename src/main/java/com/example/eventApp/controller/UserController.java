@@ -10,7 +10,6 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/users")
-@CrossOrigin(origins = "https://hackaton-app135.herokuapp.com/")
 public class UserController {
 
     private final UserService userService;

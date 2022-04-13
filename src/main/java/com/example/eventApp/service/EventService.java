@@ -116,4 +116,5 @@ public class EventService {
 
         eventRepository.saveAll(events);
     }
+
 }

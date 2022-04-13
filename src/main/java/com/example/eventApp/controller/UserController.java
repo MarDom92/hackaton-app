@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @AllArgsConstructor
 @RequestMapping("/users")
-@CrossOrigin(origins = "https://hackaton-app135.herokuapp.com/")
 public class UserController {
 
     private final UserService userService;

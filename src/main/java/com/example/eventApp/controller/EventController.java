@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @AllArgsConstructor
 @RequestMapping("/events")
-@CrossOrigin(origins = "https://hackaton-app135.herokuapp.com/")
 public class EventController {
 
     private final EventService eventService;

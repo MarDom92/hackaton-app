@@ -105,8 +105,10 @@ public class EventService {
 
         for (Event e : events) {
             currentDate = LocalDateTime.now();
-            dateOfEventStop = eventRepository.getById(e.getId()).getDateOfEventStop();
-
+            dateOfEventStop = e.getDateOfEventStop();
+            if (dateOfEventStop == null) {
+                dateOfEventStop = e.getDateOfEventStart();
+            }
             if (currentDate.isAfter(dateOfEventStop)) {
                 e.setEventStatus(EventStatus.ARCHIVED);
             }

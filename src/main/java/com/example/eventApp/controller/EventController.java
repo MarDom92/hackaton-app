@@ -48,10 +48,10 @@ public class EventController {
         eventService.saveEventToDB(eventDTO);
     }
 
-    @PutMapping(path = "/update-event",
+    @PostMapping(path = "/update-event",
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateEvent(@RequestBody EventDTO eventDTO) {
-      eventService.updateEvent(eventDTO);
+        eventService.updateEvent(eventDTO);
     }
 }
 

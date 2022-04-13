@@ -20,7 +20,7 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @PutMapping(path = "/add-me-to-event")
+    @PostMapping(path = "/add-me-to-event")
     public void addRegistrantToEvent(@RequestBody Long userId, Long eventId) {
         userService.addRegistrantToEvent(userId, eventId);
     }

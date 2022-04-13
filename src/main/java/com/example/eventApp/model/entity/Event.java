@@ -41,6 +41,15 @@ public class Event {
     private LocalDateTime dateOfEventStart;
 
     @Column
+    private LocalDateTime dateOfEventStop;
+
+    @Column
+    private String location;
+
+    @Column
+    private String name;
+
+    @Column
     @Enumerated(EnumType.STRING)
     private EventStatus eventStatus;
 
@@ -54,13 +63,6 @@ public class Event {
             joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> registrants;
-
-    @Column
-    @ManyToMany
-    @JoinTable(name = "event_whitelist",
-            joinColumns = @JoinColumn(name = "event_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> whitelist;
 
     @Column
     @OneToMany(targetEntity = Comment.class, mappedBy = "event", fetch = FetchType.LAZY)

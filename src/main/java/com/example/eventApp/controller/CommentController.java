@@ -1,6 +1,22 @@
 package com.example.eventApp.controller;
 
+import com.example.eventApp.model.dto.CommentDTO;
+import com.example.eventApp.service.CommentService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@AllArgsConstructor
+@RequestMapping("/comments")
+@CrossOrigin(origins = "https://hackaton-app135.herokuapp.com/")
 public class CommentController {
-    // ToDo: CommentDTO createCommentByEventId(long eventId);
-    // ToDo: List<CommentDTO> getCommentsByUserIdAndEventId(long userId, long eventId);
+
+    private final CommentService commentService;
+
+    @PostMapping(path = "/add",
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void createComment(@RequestBody CommentDTO commentDTO) {
+        commentService.addNewComment(commentDTO);
+    }
 }

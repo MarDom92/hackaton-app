@@ -2,6 +2,8 @@ package com.example.eventApp.model.dto;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Setter
 @Getter
 @Builder
@@ -10,6 +12,8 @@ import lombok.*;
 public class CommentDTO {
 
     private long id;
-    private UserDTO userDTO;
-    private EventDTO eventDTO;
+    private UserDTO user;
+    private long eventId;
+    private String comment;
+    private LocalDateTime created;
 }
